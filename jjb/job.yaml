@@ -1,0 +1,16 @@
+- job:
+    name: dusty-ci-example
+    node: atomicapp-shared
+    builders:
+        - inject:
+            properties-content: |
+                API_KEY=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+                MACHINE_COUNT=1
+                TEST_CMD='./run_tests.sh'
+                GIT_REPO_URL='https://github.com/dustymabe/ci-example.git'
+        - centos-ci-bootstrap
+- builder:
+    name: centos-ci-bootstrap
+    builders:
+        - python:
+            !include-raw: './run.py'
